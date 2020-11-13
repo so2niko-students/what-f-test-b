@@ -1,0 +1,3 @@
+### This is json mock server for 'WHAT' project
+
+##### Waiting for further updates...

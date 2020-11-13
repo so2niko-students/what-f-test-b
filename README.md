@@ -1,3 +1,7 @@
 ### This is json mock server for 'WHAT' project
 
-##### Waiting for further updates...
+> Init server: 
+- run `npm install`
+> Run server:
+- run `npm run start`
+

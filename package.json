@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/so2niko-students/what-f-test-b#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "what-f-test-b",
+  "version": "1.0.0",
+  "description": "json mock server for 'WHAT' project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/so2niko-students/what-f-test-b.git"
+  },
+  "keywords": [
+    "node",
+    "server",
+    "mock"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/so2niko-students/what-f-test-b/issues"
+  },
+  "homepage": "https://github.com/so2niko-students/what-f-test-b#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}

@@ -48,7 +48,6 @@ app.get('/api/student_groups/:id', ((req, res) => {
     if (error) {
       res.status(500).send('Oops! Problems with server');
     }
-    console.log(typeof id)
     const groups = JSON.parse(data.toString());
     const group = groups.find((group) => group.id === id );
 

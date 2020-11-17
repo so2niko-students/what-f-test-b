@@ -37,7 +37,16 @@ app.post('/api/accounts/auth', ((req, res) => {
     } else {
       res.header('Authorization', 'Bearer *valid jwt should be here*');
       res.header('Access-Control-Expose-Headers', 'x-tokenAuthorization');
-      res.send(requestedUser);
+
+      const { firstName, lastName, role, id } = requestedUser;
+      const responseData = {
+        firstName,
+        lastName,
+        role,
+        id,
+      };
+
+      res.send(responseData);
     }
   }));
 }));

@@ -21,6 +21,56 @@ app.get('/api', ((req, res) => {
   res.send('Hello from WHAT mock server!');
 }));
 
+app.post('/api/accounts/reg', ((req, res) => {
+  fs.readFile('./mocks/users.json', ((err, data) => {
+    if (err) {
+      req.status(500).send('Server error occured');
+    }
+    const {email, firstName, lastName, password, confirmPas} = req.body;
+    const users = JSON.parse(data);
+    const existingUser = users.find((user) => user.email === email);
+    const maxIdUsers = users.reduce((prev, cur) => {
+      if(prev.id > cur.id) {
+        return prev.id;
+      } else {
+        return cur.id;
+      }
+    });
+
+    if (existingUser) {
+      res.status(409).send('User already exists');
+    } else if (password !== confirmPas) {
+      res.status(409).send('password does not match')
+    } else {
+      const newUser = {
+        firstName,
+        lastName,
+        role: 0,
+        id: maxIdUsers + 1,
+        email,
+        password,
+        isActive: false,
+      };
+      users.push(newUser);
+      const newUsers = JSON.stringify(users);
+
+      const responseData = {
+        id: maxIdUsers + 1,
+        firstName,
+        lastName,
+        email,
+        role: 0,
+        isActive: false
+      };
+
+      fs.writeFile('./mocks/users.json', newUsers, (err) => {
+        if (err) throw err;
+        res.status(201).send(responseData);
+      })
+    }
+  }));
+}));
+
 app.post('/api/accounts/auth', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {

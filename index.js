@@ -55,4 +55,31 @@ app.get('/api/student_groups/:id', ((req, res) => {
   }));
 }));
 
+app.post('/api/student_groups', ((req, res) => {
+
+  const object = req.body;
+
+  const listOfKey = ['name', 'courseId', 'startDate', 'finishDate', 'studentIds'];
+
+  const result = listOfKey.map((key) => {
+    if(object.hasOwnProperty(key)){
+      return 'true';
+    }else{
+      return 'false';
+    }
+  });
+
+  const checkResult = result.includes('false');
+
+  if(checkResult){
+    res.status(403).send( { error: 'Missing properties in your object' });
+  }else{
+    const response = {
+      id:100,
+      ...object
+    };
+    res.send(response);
+  }
+}));
+
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

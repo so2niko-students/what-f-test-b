@@ -32,10 +32,40 @@ app.get('/api/courses', ((req, res) => {
       const responseData = JSON.parse(data)
       res.send(responseData);
     }
-    
   }));
 }));
 
+app.post('/api/courses', ((req, res) => {
+  fs.readFile('./mocks/courses.json', ((err, data) => {
+    if (err) {
+      req.status(500).send('Server error occured');
+    }
+    const {name} = req.body;
+    const courses = JSON.parse(data);
+    const existingCourse = courses.find((course) => course.name === name);
+    if(existingCourse) {
+      res.status(409).send('Course already exists');
+    } else {
+      const responseData = {
+        name,
+      }
+      res.send(responseData);
+    }
+  }));
+}));
+
+app.get('/api/courses/:id', ((req, res) => {
+  const id = Number(req.params.id);
+  fs.readFile('./mocks/courses.json', ((err, data) => {
+    if(err) {
+      res.status(500).send('Server error occured')
+    }
+    const courses = JSON.parse(data);
+    const course = courses.find((course) => course.id === id);
+
+    res.send(course);
+  }));
+}));
 
 
 app.post('/api/accounts/reg', ((req, res) => {

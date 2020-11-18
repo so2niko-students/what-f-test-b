@@ -1,0 +1,121 @@
+[
+  {
+    "firstName": "Harry",
+    "lastName": "Potter",
+    "id": 0,
+    "studentGroupIds": [1, 3],
+    "email": "chosenboy@gmail.com"
+  },
+  {
+    "firstName": "Ron",
+    "lastName": "Weasley",
+    "id": 1,
+    "studentGroupIds": [1, 2],
+    "email": "gingerboy@gmail.com"
+  },
+  {
+    "firstName": "Hermione",
+    "lastName": "Granger",
+    "id": 2,
+    "studentGroupIds": [3],
+    "email": "eggheadedgirl@gmail.com"
+  },
+  {
+    "firstName": "Sirius",
+    "lastName": "Black",
+    "id": 3,
+    "studentGroupIds": [2, 3],
+    "email": "DOGaminag@gmail.com"
+  },
+  {
+    "firstName": "Tom",
+    "lastName": "Riddle",
+    "id": 4,
+    "studentGroupIds": [1, 2],
+    "email": "lordVolandeMort@gmail.com"
+  },
+  {
+    "firstName": "Albus",
+    "lastName": "Dumbledore",
+    "id": 5,
+    "studentGroupIds": [1],
+    "email": "ElderWandMag@gmail.com"
+  },
+  {
+    "firstName": "Severus",
+    "lastName": "Snape",
+    "id": 6,
+    "studentGroupIds": [2],
+    "email": "blackcoatteacher@gmail.com"
+  },
+  {
+    "firstName": "Ginevra",
+    "lastName": "Weasley",
+    "id": 7,
+    "studentGroupIds": [1, 2, 3],
+    "email": "GinevraMollyWeasley@gmail.com"
+  },
+  {
+    "firstName": "Lilly",
+    "lastName": "Potter",
+    "id": 8,
+    "studentGroupIds": [1, 2, 3],
+    "email": "lillyGoldenfish@gmail.com"
+  },
+  {
+    "firstName": "James",
+    "lastName": "Potter",
+    "id": 9,
+    "studentGroupIds": [1, 3],
+    "email": "snitchCatcher@gmail.com"
+  },
+  {
+    "firstName": "Remus",
+    "lastName": "Lupin",
+    "id": 10,
+    "studentGroupIds": [2, 3],
+    "email": "werewolf@gmail.com"
+  },
+  {
+    "firstName": "Draco",
+    "lastName": "Malfoy",
+    "id": 11,
+    "studentGroupIds": [2, 3],
+    "email": "nastyboy@gmail.com"
+  },
+  {
+    "firstName": "Cedric",
+    "lastName": "Diggory",
+    "id": 12,
+    "studentGroupIds": [1, 2],
+    "email": "puffenduybeststudent@gmail.com"
+  },
+  {
+    "firstName": "Nevil",
+    "lastName": "Longbottom",
+    "id": 13,
+    "studentGroupIds": [1, 2, 3],
+    "email": "nevillongbottom@gmail.com"
+  },
+  {
+    "firstName": "Minavra",
+    "lastName": "McGonagall",
+    "id": 14,
+    "studentGroupIds": [2, 3],
+    "email": "catwoman@gmail.com"
+  },
+  {
+    "firstName": "Luna",
+    "lastName": "Lovegood",
+    "id": 15,
+    "studentGroupIds": [1, 3],
+    "email": "lunagirl@gmail.com"
+  },
+  {
+    "firstName": "Rubeus",
+    "lastName": "Hagrid",
+    "id": 16,
+    "studentGroupIds": [1, 2],
+    "email": "giantPlantsKeeper@gmail.com"
+  }
+]

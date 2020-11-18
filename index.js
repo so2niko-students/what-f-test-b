@@ -26,7 +26,7 @@ app.post('/api/accounts/reg', ((req, res) => {
     if (err) {
       req.status(500).send('Server error occured');
     }
-    const {email, firstName, lastName, password, confirmPas} = req.body;
+    const {email, firstName, lastName, password, confirmPassword} = req.body;
     const users = JSON.parse(data);
     const existingUser = users.find((user) => user.email === email);
     const maxIdUsers = users.reduce((prev, cur) => {
@@ -39,7 +39,7 @@ app.post('/api/accounts/reg', ((req, res) => {
 
     if (existingUser) {
       res.status(409).send('User already exists');
-    } else if (password !== confirmPas) {
+    } else if (password !== confirmPassword) {
       res.status(409).send('password does not match')
     } else {
       const newUser = {

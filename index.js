@@ -54,8 +54,11 @@ app.post('/api/courses', ((req, res) => {
 
 app.put('/api/courses/:id', ((req, res) => {
   const courseId = Number(req.params.id);
-  const {name, id} = req.body;
-
+  const {name} = req.body;
+  const editedCourse = {
+    id: 50,
+    name,
+  };
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if(err) {
       res.status(500).send('Server error occured');

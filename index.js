@@ -24,7 +24,7 @@ app.get('/api', ((req, res) => {
 app.get('/api/student_groups', (req, res) => {
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
-      res.status(500).send('Oops! Problems with server');
+      res.status(500).json({message:'Oops! Problems with server'});
     }
     const groups = JSON.parse(data.toString());
     const groupsList = groups.map((group) => {
@@ -46,7 +46,7 @@ app.get('/api/student_groups/:id', ((req, res) => {
   const id = Number(req.params.id);
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
-      res.status(500).send('Oops! Problems with server');
+      res.status(500).json({message:'Oops! Problems with server'});
     }
     const groups = JSON.parse(data.toString());
     const group = groups.find((group) => group.id === id );
@@ -80,6 +80,70 @@ app.post('/api/student_groups', ((req, res) => {
     };
     res.send(response);
   }
+}));
+
+app.put('/api/student_groups/:id', ((req, res) => {
+
+  const id = Number(req.params.id);
+
+  const object = req.body;
+
+  const listOfKey = ['name', 'courseId', 'startDate', 'finishDate', 'studentIds'];
+
+  const result = listOfKey.map((key) => {
+    if(object.hasOwnProperty(key)){
+      return 'true';
+    }else{
+      return 'false';
+    }
+  });
+
+  const checkResult = result.includes('false');
+
+  if(checkResult){
+    res.status(403).json( { message: 'Missing properties in your object' });
+  }
+
+  fs.readFile('./mocks/groups.json', ((error, data) => {
+    if (error) {
+      res.status(500).json({message:'Oops! Problems with server'});
+    }
+    const groups = JSON.parse(data.toString());
+    const group = groups.find((group) => group.id === id );
+
+    if(group){
+      res.status(200).json({
+        message: `group with id ${id} was edited`,
+      });
+    }else{
+      res.status(403).json({
+        message: `no group with id ${id}`,
+      });
+    }
+  }));
+}));
+
+app.delete('/api/student_groups/:id', ((req, res) => {
+
+  const id = Number(req.params.id);
+
+  fs.readFile('./mocks/groups.json', ((error, data) => {
+    if (error) {
+      res.status(500).json({message:'Oops! Problems with server'});
+    }
+    const groups = JSON.parse(data.toString());
+    const group = groups.find((group) => group.id === id );
+
+    if(group){
+      res.status(200).json({
+        message: `group with id ${id} was deleted`,
+      });
+    }else{
+      res.status(403).json({
+        message: `no group with id ${id}`,
+      });
+    }
+  }));
 }));
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

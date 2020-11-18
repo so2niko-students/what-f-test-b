@@ -8,12 +8,11 @@
 ### Mentors
 
 ####  GET `/api/mentors` 
-#####-->
+##### -->
 ##### Request Headers: 
- - `Content-Type: application/json`
  - `Authorization: Bearer *JWT*` 
 
-#####<-- 
+##### <-- 
 ##### Response Body:
 ```
 [
@@ -46,6 +45,7 @@
 ####  PUT `/api/mentors/:id` 
 #####-->
 ##### Request Headers: 
+- `Content-Type: application/json`
  - `Authorization: Bearer *JWT*` 
 ##### Request Body:
 ```
@@ -55,7 +55,7 @@
     "email": "string",
 }
 ```
-#####<-- 
+##### <-- 
 ##### Response Body:
 ```
 {
@@ -67,12 +67,11 @@
 ```
 
 ####  DELETE `/api/mentors/:id` 
-#####-->
+##### -->
 ##### Request Headers: 
  - `Authorization: Bearer *JWT*` 
-#####<-- 
+##### <-- 
 ##### Response: 
 ```
 Successfully deleted
 ```
-

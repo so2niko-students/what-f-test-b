@@ -18,7 +18,7 @@ app.use(((req, res, next) => {
 }))
 
 
-//---Group API(Get(ALL),Get(By Id), Put, Pots, Delete)
+//---Group API(Get(ALL),Get(By Id), Put, Post, Delete)
 
 app.get('/api', ((req, res) => {
   res.send('Hello from WHAT mock server!');
@@ -149,7 +149,7 @@ app.delete('/api/student_groups/:id', ((req, res) => {
   }));
 }));
 
-//---Group API(Get(ALL),Get(By Id), Put, Pots, Delete)
+//---Group API(Get(ALL),Get(By Id), Put, Post, Delete)
 
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

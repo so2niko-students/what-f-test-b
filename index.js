@@ -24,7 +24,7 @@ app.get('/api', ((req, res) => {
 app.post('/api/accounts/auth', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
-      res.status(500).send('Server error occurred');
+      throw err;
     }
     const { email, password } = req.body;
     const users = JSON.parse(data.toString());

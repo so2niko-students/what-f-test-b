@@ -24,7 +24,8 @@ app.get('/api', ((req, res) => {
 app.get('/api/courses', ((req, res) => {
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if (err) {
-      req.status(500).send('Server error occured');
+      res.send('Server error occured');
+      throw err;
     } else {
       const responseData = JSON.parse(data);
       res.send(responseData);
@@ -36,7 +37,7 @@ app.post('/api/courses', ((req, res) => {
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if (err) {
       res.send('Server error occured');
-      throw error;
+      throw err;
     }
     const {name} = req.body;
     const courses = JSON.parse(data);
@@ -63,7 +64,7 @@ app.put('/api/courses/:id', ((req, res) => {
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if(err) {
       res.send('Server error occured');
-      throw error;
+      throw err;
     }
 
     const courses = JSON.parse(data.toString());
@@ -81,7 +82,8 @@ app.delete('/api/courses/:id', ((req, res) => {
 
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if(err) {
-      res.status(500).send('Server error occured');
+      res.send('Server error occured');
+      throw err;
     }
     const courses = JSON.parse(data.toString());
     const course = courses.find((course) => course.id === id);

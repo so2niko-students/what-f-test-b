@@ -22,7 +22,7 @@ app.use(((req, res, next) => {
 app.get('/api/mentors', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
-      res.status(500).send('server error occurred');
+      throw err;
     }
     const users = JSON.parse(data);
     const mentors = users.filter((user) => user.role === 2);
@@ -36,7 +36,7 @@ app.get('/api/mentors', ((req, res) => {
 app.post('/api/mentors/:id', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
-      res.status(500).send('server error occurred');
+      throw err;
     }
     const users = JSON.parse(data);
     const userId = Number(req.params.id);
@@ -61,7 +61,7 @@ app.post('/api/mentors/:id', ((req, res) => {
 app.put('/api/mentors/:id', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
-      res.status(500).send('server error occurred');
+      throw err;
     }
     const users = JSON.parse(data);
     const userId = Number(req.params.id);
@@ -86,7 +86,7 @@ app.put('/api/mentors/:id', ((req, res) => {
 app.delete('/api/mentors/:id', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
-      res.status(500).send('server error occurred');
+      throw err;
     }
     const users = JSON.parse(data);
     const userId = Number(req.params.id);

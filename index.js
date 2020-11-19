@@ -106,7 +106,7 @@ app.put('/api/students/:id', ((req, res) => {
             return;
         }
         const students = JSON.parse(data.toString());
-        const student = students.find((student) => student.id === id );
+        const student = students.find((student, i) => i=== id );
         
         if (student) {
             res.status(200).json({

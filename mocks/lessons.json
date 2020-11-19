@@ -1,0 +1,165 @@
+[
+  {
+    "id": 1,
+    "themeName": "Introduction",
+    "mentorId": 1,
+    "groupId": 1,
+    "lessonVisits": [
+      {
+        "studentId": 1,
+        "studentMark": 5,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 3,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 4,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      }
+    ],
+    "lessonDate": "2020-11-04 11:20:00"
+  },
+  {
+    "id": 2,
+    "themeName": "Types",
+    "mentorId": 2,
+    "groupId": 2,
+    "lessonVisits": [
+      {
+        "studentId": 2,
+        "studentMark": 5,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 2,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 4,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      }
+    ],
+    "lessonDate": "2020-11-06 12:20:00"
+  },
+  {
+    "id": 3,
+    "themeName": "Variables",
+    "mentorId": 3,
+    "groupId": 3,
+    "lessonVisits": [
+      {
+        "studentId": 1,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 3,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 4,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      }
+    ],
+    "lessonDate": "2020-11-05 11:20:00"
+  },
+  {
+    "id": 4,
+    "themeName": "OOP",
+    "mentorId": 4,
+    "groupId": 4,
+    "lessonVisits": [
+      {
+        "studentId": 2,
+        "studentMark": 5,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 3,
+        "studentMark": 4,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 5,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      }
+    ],
+    "lessonDate": "2020-11-04 11:00:00"
+  },
+  {
+    "id": 5,
+    "themeName": "Loops",
+    "mentorId": 5,
+    "groupId": 2,
+    "lessonVisits": [
+      {
+        "studentId": 2,
+        "studentMark": 5,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 3,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 4,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      }
+    ],
+    "lessonDate": "2020-11-06 11:30:00"
+  },
+  {
+    "id": 6,
+    "themeName": "Functions",
+    "mentorId": 6,
+    "groupId": 6,
+    "lessonVisits": [
+      {
+        "studentId": 1,
+        "studentMark": 5,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 2,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 4,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      }
+    ],
+    "lessonDate": "2020-11-05 12:20:00"
+  }
+
+]

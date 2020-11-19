@@ -24,7 +24,8 @@ app.get('/api', ((req, res) => {
 app.post('/api/accounts/reg', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
-      req.status(500).send('Server error occured');
+      res.send('Server error occured');
+      throw err;
     }
     const {email, firstName, lastName, password, confirmPassword} = req.body;
     const users = JSON.parse(data);
@@ -67,36 +68,6 @@ app.post('/api/accounts/reg', ((req, res) => {
         if (err) throw err;
         res.status(201).send(responseData);
       })
-    }
-  }));
-}));
-
-app.post('/api/accounts/auth', ((req, res) => {
-  fs.readFile('./mocks/users.json', ((err, data) => {
-    if (err) {
-      res.status(500).send('Server error occurred');
-    }
-    const { email, password } = req.body;
-    const users = JSON.parse(data.toString());
-    const requestedUser = users.find((user) => user.email === email);
-
-    if (!requestedUser) {
-      res.status(400).send('User not found');
-    } else if (requestedUser.password !== password) {
-      res.status(403).send('Password incorrect');
-    } else {
-      res.header('Authorization', 'Bearer *valid jwt should be here*');
-      res.header('Access-Control-Expose-Headers', 'x-tokenAuthorization');
-
-      const { firstName, lastName, role, id } = requestedUser;
-      const responseData = {
-        firstName,
-        lastName,
-        role,
-        id,
-      };
-
-      res.send(responseData);
     }
   }));
 }));

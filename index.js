@@ -21,7 +21,7 @@ app.get('/api', ((req, res) => {
   res.send('Hello from WHAT mock server!');
 }));
 
-//--- Lessons API(GEY(all) GET(by student id) PUT POST DELETE)
+//--- Lessons API(GET(all) GET(by student id) PUT POST DELETE)
 
 app.get('/api/lessons', (req, res) => {
   fs.readFile('./mocks/lessons.json', ((error, data) => {
@@ -196,6 +196,6 @@ app.delete('/api/lessons/:id', ((req, res) => {
 }));
 
 
-///--- Lessons API(GEY(all) GET(by student id) PUT POST DELETE)
+///--- Lessons API(GET(all) GET(by student id) PUT POST DELETE)
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

@@ -51,10 +51,19 @@ app.get('/api/students/:id', ((req, res) => {
             res.status(500).json({ message: 'Oops! Problems with server'});
             return;
         }
+
         const students = JSON.parse(data.toString());
-        const student = students.find((student) => student.id === id );
-        res.send(student);
-    }));
+        const student = students.find((student, i) => i === id);
+        if (student) {
+            const { email, firstName, lastName, studentGroupIds } = student;
+            const resData = { email, firstName, lastName, studentGroupIds };
+            res.send(resData);
+        } else {
+          res.status(403).json({
+              message: `No student with such an id ${id} was found`,
+          });
+      }
+      }));
 }));
 
 //POST
@@ -66,15 +75,15 @@ app.post('/api/students/:id', ((req, res) => {
             return;
         }
         const students = JSON.parse(data.toString());
-        const student = students.find((student) => student.id === id);
+        const student = students.find((student, i) => i === id);
         
         if (student) {
-            const {id, firstName, lastName, email} = student;
-            const resData = {id, firstName, lastName, email};
+            const { id, firstName, lastName, email } = student;
+            const resData = { id, firstName, lastName, email };
             res.send(resData);
         } else {
             res.status(403).json({
-                message: `No student with such an id ${id} was found`,
+                message: `The student with this id ${id} already exist`,
             });
         }
     }));

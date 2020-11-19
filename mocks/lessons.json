@@ -2,24 +2,72 @@
   {
     "id": 1,
     "themeName": "Introduction",
-    "mentorId": 1,
+    "mentorId": 2,
     "groupId": 1,
     "lessonVisits": [
       {
-        "studentId": 1,
-        "studentMark": 5,
+        "studentId": 0,
+        "studentMark": 2,
         "presence": false,
         "comment": "Good"
       },
       {
-        "studentId": 3,
+        "studentId": 1,
+        "studentMark": 2,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 4,
         "studentMark": 4,
         "presence": true,
         "comment": "Good"
       },
       {
-        "studentId": 4,
+        "studentId": 5,
         "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 7,
+        "studentMark": 3,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 8,
+        "studentMark": 2,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 9,
+        "studentMark": 2,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 12,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 13,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 15,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 16,
+        "studentMark": 4,
         "presence": true,
         "comment": "Good"
       }
@@ -33,20 +81,74 @@
     "groupId": 2,
     "lessonVisits": [
       {
-        "studentId": 2,
-        "studentMark": 5,
+        "studentId": 1,
+        "studentMark": 2,
         "presence": false,
         "comment": "Good"
       },
       {
-        "studentId": 2,
-        "studentMark": 4,
+        "studentId": 3,
+        "studentMark": 5,
         "presence": true,
         "comment": "Good"
       },
       {
         "studentId": 4,
         "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 6,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 7,
+        "studentMark": 3,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 8,
+        "studentMark": 3,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 10,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 11,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 12,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 13,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 14,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 16,
+        "studentMark": 4,
         "presence": true,
         "comment": "Good"
       }
@@ -56,11 +158,17 @@
   {
     "id": 3,
     "themeName": "Variables",
-    "mentorId": 3,
+    "mentorId": 5,
     "groupId": 3,
     "lessonVisits": [
       {
-        "studentId": 1,
+        "studentId": 0,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 2,
         "studentMark": 5,
         "presence": true,
         "comment": "Good"
@@ -72,9 +180,51 @@
         "comment": "Good"
       },
       {
-        "studentId": 4,
+        "studentId": 7,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 8,
+        "studentMark": 3,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 9,
         "studentMark": 5,
         "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 10,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 11,
+        "studentMark": 2,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 13,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 14,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 15,
+        "studentMark": 2,
+        "presence": false,
         "comment": "Good"
       }
     ],
@@ -83,25 +233,73 @@
   {
     "id": 4,
     "themeName": "OOP",
-    "mentorId": 4,
-    "groupId": 4,
+    "mentorId": 6,
+    "groupId": 3,
     "lessonVisits": [
+      {
+        "studentId": 0,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
       {
         "studentId": 2,
         "studentMark": 5,
-        "presence": false,
+        "presence": true,
         "comment": "Good"
       },
       {
         "studentId": 3,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 7,
         "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 8,
+        "studentMark": 3,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 9,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 10,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 11,
+        "studentMark": 2,
         "presence": false,
         "comment": "Good"
       },
       {
-        "studentId": 5,
+        "studentId": 13,
         "studentMark": 5,
         "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 14,
+        "studentMark": 2,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 15,
+        "studentMark": 5,
+        "presence": false,
         "comment": "Good"
       }
     ],
@@ -114,20 +312,74 @@
     "groupId": 2,
     "lessonVisits": [
       {
-        "studentId": 2,
-        "studentMark": 5,
+        "studentId": 1,
+        "studentMark": 2,
         "presence": false,
         "comment": "Good"
       },
       {
         "studentId": 3,
-        "studentMark": 4,
+        "studentMark": 5,
         "presence": true,
         "comment": "Good"
       },
       {
         "studentId": 4,
         "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 6,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 7,
+        "studentMark": 3,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 8,
+        "studentMark": 3,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 10,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 11,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 12,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 13,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 14,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 16,
+        "studentMark": 4,
         "presence": true,
         "comment": "Good"
       }
@@ -138,23 +390,71 @@
     "id": 6,
     "themeName": "Functions",
     "mentorId": 6,
-    "groupId": 6,
+    "groupId": 1,
     "lessonVisits": [
       {
-        "studentId": 1,
-        "studentMark": 5,
+        "studentId": 0,
+        "studentMark": 2,
         "presence": false,
         "comment": "Good"
       },
       {
-        "studentId": 2,
+        "studentId": 1,
+        "studentMark": 2,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 4,
         "studentMark": 4,
         "presence": true,
         "comment": "Good"
       },
       {
-        "studentId": 4,
+        "studentId": 5,
         "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 7,
+        "studentMark": 3,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 8,
+        "studentMark": 2,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 9,
+        "studentMark": 2,
+        "presence": false,
+        "comment": "Good"
+      },
+      {
+        "studentId": 12,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 13,
+        "studentMark": 4,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 15,
+        "studentMark": 5,
+        "presence": true,
+        "comment": "Good"
+      },
+      {
+        "studentId": 16,
+        "studentMark": 4,
         "presence": true,
         "comment": "Good"
       }

@@ -21,7 +21,7 @@ app.get('/api', ((req, res) => {
   res.send('Hello from WHAT mock server!');
 }));
 
-//--- Lessons
+//--- Lessons API(GEY(all) GET(by student id) PUT POST DELETE)
 
 app.get('/api/lessons', (req, res) => {
   fs.readFile('./mocks/lessons.json', ((error, data) => {
@@ -69,18 +69,6 @@ app.get('/api/lessons/students/:id', ((req, res) => {
       const studentGroups = student.studentGroupIds;
       const lessonsList = studentGroups.map((groupID)=>{
         const lessonsResult = lessons.filter(lesson=>lesson.groupId === groupID);
-        /*  if(studentGroups.includes(lesson.groupId)){
-            const {themeName, id, groupId, lessonDate, lessonVisits} = lesson;
-            const visitOfStudent = lessonVisits.find((visit)=> visit.studentId === studentID);
-            const resultObject = {
-              themeName,
-              id,
-             groupId,
-              lessonDate,
-              ...visitOfStudent
-            }
-            console.log(resultObject);
-            return resultObject;*/
           return [...lessonsResult];
       });
 
@@ -102,8 +90,6 @@ app.get('/api/lessons/students/:id', ((req, res) => {
         }
         return resultObject;
       });
-
-      console.log(lessonsByStudentId);
 
       if(lessonsList){
         res.status(200).json(lessonsByStudentId);
@@ -186,7 +172,30 @@ app.put('/api/lessons/:id', ((req, res) => {
   }));
 }));
 
+app.delete('/api/lessons/:id', ((req, res) => {
 
-///--- Lessons
+  const id = Number(req.params.id);
+
+  fs.readFile('./mocks/lessons.json', ((error, data) => {
+    if (error) {
+      res.status(500).json({message:'Oops! Problems with server'});
+    }
+    const lessons = JSON.parse(data.toString());
+    const lesson = lessons.find((elem) => elem.id === id );
+
+    if(lesson){
+      res.status(200).json({
+        message: `lesson with id ${id} was deleted`,
+      });
+    }else{
+      res.status(403).json({
+        message: `no lesson with id ${id}`,
+      });
+    }
+  }));
+}));
+
+
+///--- Lessons API(GEY(all) GET(by student id) PUT POST DELETE)
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

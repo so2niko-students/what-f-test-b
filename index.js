@@ -35,7 +35,8 @@ app.get('/api/courses', ((req, res) => {
 app.post('/api/courses', ((req, res) => {
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if (err) {
-      req.status(500).send('Server error occured');
+      res.send('Server error occured');
+      throw error;
     }
     const {name} = req.body;
     const courses = JSON.parse(data);
@@ -61,7 +62,8 @@ app.put('/api/courses/:id', ((req, res) => {
   };
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if(err) {
-      res.status(500).send('Server error occured');
+      res.send('Server error occured');
+      throw error;
     }
 
     const courses = JSON.parse(data.toString());
@@ -69,7 +71,7 @@ app.put('/api/courses/:id', ((req, res) => {
     if (course) {
       res.send(`course with id ${courseId} is edited`);
     } else {
-      res.status(403).send(`There is no course with id ${courseId}`);
+      res.send(`There is no course with id ${courseId}`);
     }
   }));
 }));
@@ -87,7 +89,7 @@ app.delete('/api/courses/:id', ((req, res) => {
     if(course) {
       res.send(`Course with id ${id} is deleted`);
     } else {
-      res.status(403).send(`There is no course with id ${id}`);
+      res.send(`There is no course with id ${id}`);
     }
   }));
 }));

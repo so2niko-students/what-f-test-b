@@ -27,21 +27,23 @@ app.get('/api', ((req, res) => {
 app.get('/api/student_groups', (req, res) => {
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
-      res.status(500).json({message:'Oops! Problems with server'});
-    }
-    const groups = JSON.parse(data.toString());
-    const groupsList = groups.map((group) => {
-      const {id, name, startDate, finishDate} = group;
-      const resultGroup = {
-        id,
-        name,
-        startDate,
-        finishDate
-      }
-      return resultGroup
-    });
+      res.send('Server error');
+      throw error;
+    }else{
+      const groups = JSON.parse(data.toString());
+      const groupsList = groups.map((group) => {
+        const {id, name, startDate, finishDate} = group;
+        const resultGroup = {
+          id,
+          name,
+          startDate,
+          finishDate
+        }
+        return resultGroup
+      });
 
-    res.send(groupsList);
+      res.send(groupsList);
+    }
   }));
 });
 
@@ -49,12 +51,14 @@ app.get('/api/student_groups/:id', ((req, res) => {
   const id = Number(req.params.id);
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
-      res.status(500).json({message:'Oops! Problems with server'});
-    }
-    const groups = JSON.parse(data.toString());
-    const group = groups.find((group) => group.id === id );
+      res.send('Server error');
+      throw error;
+    }else{
+      const groups = JSON.parse(data.toString());
+      const group = groups.find((group) => group.id === id );
 
-    res.send(group);
+      res.send(group);
+    }
   }));
 }));
 
@@ -64,25 +68,40 @@ app.post('/api/student_groups', ((req, res) => {
 
   const listOfKey = ['name', 'courseId', 'startDate', 'finishDate', 'studentIds'];
 
-  const result = listOfKey.map((key) => {
-    if(object.hasOwnProperty(key)){
-      return 'true';
+  fs.readFile('./mocks/groups.json', ((error, data) => {
+    if (error) {
+      res.send('Server error');
+      throw error;
     }else{
-      return 'false';
+
+      const groups = JSON.parse(data.toString());
+      const group = groups.find((group) => group.name === object.name );
+
+      if(group){
+        res.status(400).send( 'Group with the same name already exists' );
+      }
+
+      const result = listOfKey.map((key) => {
+        if(object.hasOwnProperty(key)){
+          return 'true';
+        }else{
+          return 'false';
+        }
+      });
+
+      const checkResult = result.includes('false');
+
+      if(checkResult){
+        res.status(400).send( 'Missing properties in your object' );
+      }else{
+        const response = {
+          id:100,
+          ...object
+        };
+        res.send(response);
+      }
     }
-  });
-
-  const checkResult = result.includes('false');
-
-  if(checkResult){
-    res.status(403).send( { error: 'Missing properties in your object' });
-  }else{
-    const response = {
-      id:100,
-      ...object
-    };
-    res.send(response);
-  }
+  }));
 }));
 
 app.put('/api/student_groups/:id', ((req, res) => {
@@ -104,24 +123,22 @@ app.put('/api/student_groups/:id', ((req, res) => {
   const checkResult = result.includes('false');
 
   if(checkResult){
-    res.status(403).json( { message: 'Missing properties in your object' });
+    res.status(400).send(  'Missing properties in your object');
   }
 
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
-      res.status(500).json({message:'Oops! Problems with server'});
-    }
-    const groups = JSON.parse(data.toString());
-    const group = groups.find((group) => group.id === id );
-
-    if(group){
-      res.status(200).json({
-        message: `group with id ${id} was edited`,
-      });
+      res.send('Server error');
+      throw error;
     }else{
-      res.status(403).json({
-        message: `no group with id ${id}`,
-      });
+      const groups = JSON.parse(data.toString());
+      const group = groups.find((group) => group.id === id );
+
+      if(group){
+        res.send(`group with id ${id} was edited`);
+      }else{
+        res.status(400).send( `no group with id ${id}`);
+      }
     }
   }));
 }));
@@ -132,19 +149,17 @@ app.delete('/api/student_groups/:id', ((req, res) => {
 
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
-      res.status(500).json({message:'Oops! Problems with server'});
-    }
-    const groups = JSON.parse(data.toString());
-    const group = groups.find((group) => group.id === id );
-
-    if(group){
-      res.status(200).json({
-        message: `group with id ${id} was deleted`,
-      });
+      res.send('Server error');
+      throw error;
     }else{
-      res.status(403).json({
-        message: `no group with id ${id}`,
-      });
+      const groups = JSON.parse(data.toString());
+      const group = groups.find((group) => group.id === id );
+
+      if(group){
+        res.send(`group with id ${id} was deleted`);
+      }else{
+        res.status(403).send(`no group with id ${id}`);
+      }
     }
   }));
 }));

@@ -26,21 +26,23 @@ app.get('/api', ((req, res) => {
 app.get('/api/lessons', (req, res) => {
   fs.readFile('./mocks/lessons.json', ((error, data) => {
     if (error) {
-      res.status(500).json({message:'Oops! Problems with server'});
-    }
-    const lessons = JSON.parse(data.toString());
-    const lessonsList = lessons.map((lesson) => {
-      const {id, themeName, mentorId, lessonDate} = lesson;
-      const resultLesson = {
-        id,
-        themeName,
-        mentorId,
-        lessonDate
-      }
-      return resultLesson
-    });
+      res.send('Server error');
+      throw error;
+    }else{
+      const lessons = JSON.parse(data.toString());
+      const lessonsList = lessons.map((lesson) => {
+        const {id, themeName, mentorId, lessonDate} = lesson;
+        const resultLesson = {
+          id,
+          themeName,
+          mentorId,
+          lessonDate
+        }
+        return resultLesson
+      });
 
-    res.send(lessonsList);
+      res.send(lessonsList);
+    }
   }));
 });
 
@@ -50,59 +52,60 @@ app.get('/api/lessons/students/:id', ((req, res) => {
 
   fs.readFile('./mocks/students.json', ((error, data) => {
     if (error) {
-      res.status(500).json({message:'Oops! Problems with server'});
-    }
-    const students = JSON.parse(data.toString());
-    student = students.find((student) => student.id === studentID );
+      res.send('Server error');
+      throw error;
+    }else{
 
-    if(!student) {
-      res.status(403).json({
-        message: `no student with id ${studentID}`,
-      });
-    }
-    fs.readFile('./mocks/lessons.json', ((error, data) => {
-      if (error) {
-        res.status(500).json({message:'Oops! Problems with server'});
+      const students = JSON.parse(data.toString());
+      student = students.find((student) => student.id === studentID );
+
+      if(!student) {
+        res.status(400).send(`no student with id ${studentID}`);
       }
-      const lessons = JSON.parse(data.toString());
+      fs.readFile('./mocks/lessons.json', ((error, data) => {
 
-      const studentGroups = student.studentGroupIds;
-      const lessonsList = studentGroups.map((groupID)=>{
-        const lessonsResult = lessons.filter(lesson=>lesson.groupId === groupID);
-          return [...lessonsResult];
-      });
+        if (error) {
+          res.send('Server error');
+          throw error;
+        }else{
 
-      const test = lessonsList.flat();
+          const lessons = JSON.parse(data.toString());
 
-      const lessonsByStudentId = test.map((lesson)=>{
-        const {themeName, id, lessonDate, groupId} = lesson;
-        const visits = lesson.lessonVisits;
-        const result = visits.find((visit)=> visit.studentId === studentID);
-        const { studentMark, presence, comment } = result;
-        const resultObject = {
-          themeName,
-          id,
-          groupId,
-          lessonDate,
-          studentMark,
-          presence,
-          comment
+          const studentGroups = student.studentGroupIds;
+
+          const lessonsList = studentGroups.map((groupID)=>{
+            const lessonsResult = lessons.filter(lesson=>lesson.groupId === groupID);
+            return [...lessonsResult];
+          });
+
+          const test = lessonsList.flat();
+
+          const lessonsByStudentId = test.map((lesson)=>{
+            const {themeName, id, lessonDate, groupId} = lesson;
+            const visits = lesson.lessonVisits;
+            const result = visits.find((visit)=> visit.studentId === studentID);
+            const { studentMark, presence, comment } = result;
+            const resultObject = {
+              themeName,
+              id,
+              groupId,
+              lessonDate,
+              studentMark,
+              presence,
+              comment
+            }
+            return resultObject;
+          });
+
+          if(lessonsList){
+            res.send(lessonsByStudentId);
+          }else{
+            res.status(400).send(`no lesson with id ${id}`);
+          }
         }
-        return resultObject;
-      });
-
-      if(lessonsList){
-        res.status(200).json(lessonsByStudentId);
-      }else{
-        res.status(403).json({
-          message: `no lesson with id ${id}`,
-        });
-      }
-    }));
-
+      }));
+    }
   }));
-
-
 }));
 
 app.post('/api/lessons', ((req, res) => {
@@ -122,11 +125,9 @@ app.post('/api/lessons', ((req, res) => {
   const checkResult = result.includes('false');
 
   if(checkResult){
-    res.status(403).send( { error: 'Missing properties in your object' });
+    res.status(400).send( 'Missing properties in your object' );
   }else{
-    res.status(200).json({
-      message: `lesson  was created`,
-    });
+    res.send(`lesson  was created`);
   }
 }));
 
@@ -150,24 +151,21 @@ app.put('/api/lessons/:id', ((req, res) => {
   const checkResult = result.includes('false');
 
   if(checkResult){
-    res.status(403).json( { message: 'Missing properties in your object' });
+    res.status(403).send( 'Missing properties in your object' );
   }
 
   fs.readFile('./mocks/lessons.json', ((error, data) => {
     if (error) {
-      res.status(500).json({message:'Oops! Problems with server'});
+      res.send('Server error');
+      throw error;
     }
     const lessons = JSON.parse(data.toString());
     const lesson = lessons.find((group) => group.id === id );
 
     if(lesson){
-      res.status(200).json({
-        message: `lesson with id ${id} was edited`,
-      });
+      res.send(`lesson with id ${id} was edited`);
     }else{
-      res.status(403).json({
-        message: `no lesson with id ${id}`,
-      });
+      res.status(403).send(`no lesson with id ${id}`);
     }
   }));
 }));
@@ -178,19 +176,16 @@ app.delete('/api/lessons/:id', ((req, res) => {
 
   fs.readFile('./mocks/lessons.json', ((error, data) => {
     if (error) {
-      res.status(500).json({message:'Oops! Problems with server'});
+      res.send('Server error');
+      throw error;
     }
     const lessons = JSON.parse(data.toString());
     const lesson = lessons.find((elem) => elem.id === id );
 
     if(lesson){
-      res.status(200).json({
-        message: `lesson with id ${id} was deleted`,
-      });
+      res.send(`lesson with id ${id} was deleted`);
     }else{
-      res.status(403).json({
-        message: `no lesson with id ${id}`,
-      });
+      res.status(403).send( `no lesson with id ${id}`);
     }
   }));
 }));

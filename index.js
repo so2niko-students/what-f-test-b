@@ -17,19 +17,71 @@ app.use(((req, res, next) => {
   next();
 }))
 
-
-//---Group API(Get(ALL),Get(By Id), Put, Post, Delete)
-
 app.get('/api', ((req, res) => {
   res.send('Hello from WHAT mock server!');
 }));
+
+// Creating an account
+
+app.post('/api/accounts/reg', ((req, res) => {
+  fs.readFile('./mocks/users.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const {email, firstName, lastName, password, confirmPassword} = req.body;
+    const users = JSON.parse(data);
+    const existingUser = users.find((user) => user.email === email);
+    const maxIdUsers = users.reduce((prev, cur) => {
+      if (prev.id > cur.id) {
+        return prev.id;
+      } else {
+        return cur.id;
+      }
+    });
+
+    if (existingUser) {
+      res.status(409).send('User already exists');
+    } else if (password !== confirmPassword) {
+      res.status(409).send('password does not match')
+    } else {
+      const newUser = {
+        firstName,
+        lastName,
+        role: 0,
+        id: maxIdUsers + 1,
+        email,
+        password,
+        isActive: false,
+      };
+      users.push(newUser);
+      const newUsers = JSON.stringify(users);
+
+      const responseData = {
+        id: maxIdUsers + 1,
+        firstName,
+        lastName,
+        email,
+        role: 0,
+        isActive: false
+      };
+
+      fs.writeFile('./mocks/users.json', newUsers, (err) => {
+        if (err) throw err;
+        res.status(201).send(responseData);
+      })
+    }
+  }));
+}));
+
+//---Group API(Get(ALL),Get(By Id), Put, Post, Delete)
 
 app.get('/api/student_groups', (req, res) => {
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
       res.send('Server error');
       throw error;
-    }else{
+    } else {
       const groups = JSON.parse(data.toString());
       const groupsList = groups.map((group) => {
         const {id, name, startDate, finishDate} = group;
@@ -53,7 +105,7 @@ app.get('/api/student_groups/:id', ((req, res) => {
     if (error) {
       res.send('Server error');
       throw error;
-    }else{
+    } else {
       const groups = JSON.parse(data.toString());
       const group = groups.find((group) => group.id === id );
 
@@ -72,28 +124,28 @@ app.post('/api/student_groups', ((req, res) => {
     if (error) {
       res.send('Server error');
       throw error;
-    }else{
+    } else {
 
       const groups = JSON.parse(data.toString());
       const group = groups.find((group) => group.name === object.name );
 
-      if(group){
+      if (group) {
         res.status(400).send( 'Group with the same name already exists' );
       }
 
       const result = listOfKey.map((key) => {
-        if(object.hasOwnProperty(key)){
+        if (object.hasOwnProperty(key)) {
           return 'true';
-        }else{
+        } else {
           return 'false';
         }
       });
 
       const checkResult = result.includes('false');
 
-      if(checkResult){
+      if (checkResult) {
         res.status(400).send( 'Missing properties in your object' );
-      }else{
+      } else {
         const response = {
           id:100,
           ...object
@@ -113,16 +165,16 @@ app.put('/api/student_groups/:id', ((req, res) => {
   const listOfKey = ['name', 'courseId', 'startDate', 'finishDate', 'studentIds'];
 
   const result = listOfKey.map((key) => {
-    if(object.hasOwnProperty(key)){
+    if (object.hasOwnProperty(key)) {
       return 'true';
-    }else{
+    } else {
       return 'false';
     }
   });
 
   const checkResult = result.includes('false');
 
-  if(checkResult){
+  if (checkResult) {
     res.status(400).send(  'Missing properties in your object');
   }
 
@@ -130,13 +182,13 @@ app.put('/api/student_groups/:id', ((req, res) => {
     if (error) {
       res.send('Server error');
       throw error;
-    }else{
+    } else {
       const groups = JSON.parse(data.toString());
       const group = groups.find((group) => group.id === id );
 
-      if(group){
+      if (group) {
         res.send(`group with id ${id} was edited`);
-      }else{
+      } else {
         res.status(400).send( `no group with id ${id}`);
       }
     }
@@ -151,13 +203,13 @@ app.delete('/api/student_groups/:id', ((req, res) => {
     if (error) {
       res.send('Server error');
       throw error;
-    }else{
+    } else {
       const groups = JSON.parse(data.toString());
       const group = groups.find((group) => group.id === id );
 
-      if(group){
+      if (group) {
         res.send(`group with id ${id} was deleted`);
-      }else{
+      } else {
         res.status(403).send(`no group with id ${id}`);
       }
     }
@@ -165,6 +217,5 @@ app.delete('/api/student_groups/:id', ((req, res) => {
 }));
 
 //---Group API(Get(ALL),Get(By Id), Put, Post, Delete)
-
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

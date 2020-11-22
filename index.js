@@ -216,6 +216,81 @@ app.delete('/api/student_groups/:id', ((req, res) => {
   }));
 }));
 
-//---Group API(Get(ALL),Get(By Id), Put, Post, Delete)
+// Courses API
+
+app.get('/api/courses', ((req, res) => {
+  fs.readFile('./mocks/courses.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    } else {
+      const responseData = JSON.parse(data);
+      res.send(responseData);
+    }
+  }));
+}));
+
+app.post('/api/courses', ((req, res) => {
+  fs.readFile('./mocks/courses.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const {name} = req.body;
+    const courses = JSON.parse(data);
+    const existingCourse = courses.find((course) => course.name === name);
+
+    if(existingCourse) {
+      res.status(409).send('Course already exists');
+    } else {
+      const responseData = {
+        name,
+      }
+      res.send(responseData);
+    }
+  }));
+}));
+
+app.put('/api/courses/:id', ((req, res) => {
+  const courseId = Number(req.params.id);
+  const {name} = req.body;
+  const editedCourse = {
+    id: 50,
+    name,
+  };
+  fs.readFile('./mocks/courses.json', ((err, data) => {
+    if(err) {
+      res.send('Server error occured');
+      throw err;
+    }
+
+    const courses = JSON.parse(data.toString());
+    const course = courses.find((course) => course.id === courseId);
+    if (course) {
+      res.send(`course with id ${courseId} is edited`);
+    } else {
+      res.send(`There is no course with id ${courseId}`);
+    }
+  }));
+}));
+
+app.delete('/api/courses/:id', ((req, res) => {
+  const id = Number(req.params.id);
+
+  fs.readFile('./mocks/courses.json', ((err, data) => {
+    if(err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const courses = JSON.parse(data.toString());
+    const course = courses.find((course) => course.id === id);
+
+    if(course) {
+      res.send(`Course with id ${id} is deleted`);
+    } else {
+      res.send(`There is no course with id ${id}`);
+    }
+  }));
+}));
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

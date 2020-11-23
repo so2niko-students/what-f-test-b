@@ -23,6 +23,36 @@ app.get('/api', ((req, res) => {
 
 // Creating an account
 
+app.post('/api/accounts/auth', ((req, res) => {
+  fs.readFile('./mocks/users.json', ((err, data) => {
+    if (err) {
+      throw err;
+    }
+    const { email, password } = req.body;
+    const users = JSON.parse(data.toString());
+    const requestedUser = users.find((user) => user.email === email);
+
+    if (!requestedUser) {
+      res.status(400).send('User not found');
+    } else if (requestedUser.password !== password) {
+      res.status(403).send('Password incorrect');
+    } else {
+      res.header('Authorization', 'Bearer *valid jwt should be here*');
+      res.header('Access-Control-Expose-Headers', 'x-tokenAuthorization');
+
+      const { firstName, lastName, role, id } = requestedUser;
+      const responseData = {
+        firstName,
+        lastName,
+        role,
+        id,
+      };
+
+      res.send(responseData);
+    }
+  }));
+}));
+
 app.post('/api/accounts/reg', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {

@@ -1,1 +1,83 @@
-[{"firstName":"User","lastName":"User","role":1,"id":0,"email":"user@mail.com","password":"password","isActive":false},{"firstName":"Jeff","lastName":"Bezos","role":1,"id":1,"email":"amazon@mail.com","password":"password","isActive":false},{"firstName":"Tim","lastName":"Cook","role":2,"id":2,"email":"cookie@gmail.com","password":"password","isActive":false},{"firstName":"Donald","lastName":"Trump","role":3,"id":3,"email":"maga@gmail.com","password":"password","isActive":false},{"firstName":"Larry","lastName":"Page","role":4,"id":4,"email":"google@gmail.com","password":"password","isActive":false}]
+[
+  {
+    "firstName":"User",
+    "lastName":"User",
+    "role":1,
+    "id":0,
+    "email":"user@mail.com",
+    "password":"password",
+    "isActive":true
+  },
+  {
+    "firstName":"Jeff",
+    "lastName":"Bezos",
+    "role":1,
+    "id":1,
+    "email":"amazon@mail.com",
+    "password":"password",
+    "isActive":true
+  },
+  {
+    "firstName":"Tim",
+    "lastName":"Cook",
+    "role":2,
+    "id":2,
+    "email":"cookie@gmail.com",
+    "password":"password",
+    "isActive": true
+  },
+  {
+    "firstName":"Donald",
+    "lastName":"Trump",
+    "role":3,
+    "id":3,
+    "email":"maga@gmail.com",
+    "password":"password",
+    "isActive":true
+  },
+  {
+    "firstName":"Larry",
+    "lastName":"Page",
+    "role":4,
+    "id":4,
+    "email":"google@gmail.com",
+    "password":"password",
+    "isActive":true
+  },
+  {
+    "firstName":"Joe",
+    "lastName":"Biden",
+    "role":2,
+    "id":5,
+    "email":"mr.president@gmail.com",
+    "password":"password",
+    "isActive": true
+  },
+  {
+    "firstName":"Barack",
+    "lastName":"Obama",
+    "role":2,
+    "id":6,
+    "email":"ex.president@gmail.com",
+    "password":"password",
+    "isActive": true
+  },
+  {
+    "firstName":"Kanye",
+    "lastName":"West",
+    "role":2,
+    "id":7,
+    "email":"next.president@gmail.com",
+    "password":"password",
+    "isActive": true
+  },
+  {
+    "firstName":"Kanye",
+    "lastName":"East",
+    "role":0,
+    "id":8,
+    "email":"east@gmail.com",
+    "password":"password",
+    "isActive": true
+  }
+]

@@ -23,7 +23,7 @@ app.get('/api', ((req, res) => {
 
 // Creating an account
 
-app.post('/api/accounts/reg', ((req, res) => {
+app.post('/api/accounts/auth', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
       throw err;

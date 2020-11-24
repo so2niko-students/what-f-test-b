@@ -81,7 +81,7 @@ app.get('/api/lessons/students/:id', ((req, res) => {
           const test = lessonsList.flat();
 
           const lessonsByStudentId = test.map((lesson)=>{
-            const {themeName, id, lessonDate, groupId} = lesson;
+            const {themeName, id, lessonDate, studentGroupId} = lesson;
             const visits = lesson.lessonVisits;
             const result = visits.find((visit)=> visit.studentId === studentID);
             const { studentMark, presence, comment } = result;
@@ -112,7 +112,7 @@ app.post('/api/lessons', ((req, res) => {
 
   const object = req.body;
 
-  const listOfKey = ['themeName', 'mentorId', 'groupId', 'lessonVisits', 'lessonDate'];
+  const listOfKey = ['themeName', 'mentorId', 'studentGroupId', 'lessonVisits', 'lessonDate'];
 
   const result = listOfKey.map((keyL) => {
     if(object.hasOwnProperty(keyL)){
@@ -120,11 +120,9 @@ app.post('/api/lessons', ((req, res) => {
     }else{
       return 'false';
     }
-  });
+  }).includes('false');
 
-  const checkResult = result.includes('false');
-
-  if(checkResult){
+  if(result){
     res.status(400).send( 'Missing properties in your object' );
   }else{
     res.send(`lesson  was created`);
@@ -138,7 +136,7 @@ app.put('/api/lessons/:id', ((req, res) => {
 
   const object = req.body;
 
-  const listOfKey = ['themeName', 'mentorId', 'lessonVisits', 'lessonDate'];
+  const listOfKey = ['themeName', 'lessonVisits', 'lessonDate'];
 
   const result = listOfKey.map((key) => {
     if(object.hasOwnProperty(key)){

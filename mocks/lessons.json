@@ -3,7 +3,7 @@
     "id": 1,
     "themeName": "Introduction",
     "mentorId": 2,
-    "groupId": 1,
+    "studentGroupId": 1,
     "lessonVisits": [
       {
         "studentId": 0,
@@ -78,7 +78,7 @@
     "id": 2,
     "themeName": "Types",
     "mentorId": 2,
-    "groupId": 2,
+    "studentGroupId": 2,
     "lessonVisits": [
       {
         "studentId": 1,
@@ -159,7 +159,7 @@
     "id": 3,
     "themeName": "Variables",
     "mentorId": 5,
-    "groupId": 3,
+    "studentGroupId": 3,
     "lessonVisits": [
       {
         "studentId": 0,
@@ -234,7 +234,7 @@
     "id": 4,
     "themeName": "OOP",
     "mentorId": 6,
-    "groupId": 3,
+    "studentGroupId": 3,
     "lessonVisits": [
       {
         "studentId": 0,
@@ -309,7 +309,7 @@
     "id": 5,
     "themeName": "Loops",
     "mentorId": 5,
-    "groupId": 2,
+    "studentGroupId": 2,
     "lessonVisits": [
       {
         "studentId": 1,
@@ -390,7 +390,7 @@
     "id": 6,
     "themeName": "Functions",
     "mentorId": 6,
-    "groupId": 1,
+    "studentGroupId": 1,
     "lessonVisits": [
       {
         "studentId": 0,

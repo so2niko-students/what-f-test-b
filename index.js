@@ -20,7 +20,6 @@ app.use(((req, res, next) => {
 
 app.get('/api', ((req, res) => {
     res.send('Hello from WHAT mock server!');
-    return;
 }));
 
 //GET list of Students
@@ -28,7 +27,6 @@ app.get('/api/students', (req, res) => {
     fs.readFile('./mocks/students.json', ((error, data) => {
         if (error) {
             res.status(500).json({ message: 'Oops! Problems with server'});
-            return;
         }
         const students = JSON.parse(data.toString());
         const list = students.map((student) => {
@@ -49,7 +47,6 @@ app.get('/api/students/:id', ((req, res) => {
     fs.readFile('./mocks/students.json', ((error, data) => {
         if (error) {
             res.status(500).json({ message: 'Oops! Problems with server'});
-            return;
         }
         const students = JSON.parse(data.toString());
         const student = students.find((student) => student.id === id );
@@ -59,42 +56,56 @@ app.get('/api/students/:id', ((req, res) => {
 
 //POST
 app.post('/api/students/:id', ((req, res) => {
-    const id = Number(req.params.id);
-    fs.readFile('./mocks/students.json', ((error, data) => {
-        if (error) {
-            res.status(500).json({ message: 'Oops! Problems with server'});
-            return;
-        }
-        const students = JSON.parse(data.toString());
-        const student = students.find((student) => student.id === id);
-        
-        if (student) {
-            const {id, firstName, lastName, email} = student;
-            const resData = {id, firstName, lastName, email};
-            res.send(resData);
-        } else {
-            res.status(403).json({
-                message: `No student with such an id ${id} was found`,
-            });
-        }
+  const id = Number(req.params.id);
+  const keys = ['firstName', 'lastName', 'studentGroupIds', 'email'];
+  for (let key of keys) {
+      if (!req.body.hasOwnProperty(key)) {
+        res.status(403).json({ message: 'Missing properties in your object' });
+        return;
+      }
+  }
+  fs.readFile('./mocks/students.json', ((error, data) => {
+      if (error) {
+          res.status(500).json({ message: 'Oops! Problems with server'});
+      }
+      const students = JSON.parse(data.toString());
+      const student = students.find((student) => student.id === id);
+      
+      if (student) {
+          const {id, firstName, lastName, email} = student;
+          const resData = {id, firstName, lastName, email};
+          res.send(resData);
+      } else {
+          res.status(403).json({
+              message: `No student with such an id ${id} was found`,
+          });
+      }
     }));
 }));
 
 //PUT
 app.put('/api/students/:id', ((req, res) => {
     const id = Number(req.params.id);
+    const object = req.body;
     const keys = ['firstName', 'lastName', 'studentGroupIds', 'email'];
-    for (let key of keys) {
-        if (!req.body.hasOwnProperty(key)) {
-            res.status(403).json({ message: 'Missing properties in your object' });
-            return;
+    const result = keys.map((key) => {
+        if(object.hasOwnProperty(key)){
+            return 'true';
+        } else {
+            return 'false';
         }
-    }
+    });
     
+    const checkResult = result.includes('false');
+    
+    if(checkResult){
+        res.status(403).json( { message: 'Missing properties in your object' });
+    }
+
+
     fs.readFile('./mocks/students.json', ((error, data) => {
-        if (error) {
+    if (error) {
             res.status(500).json({ message: 'Oops! Problems with server'});
-            return;
         }
         const students = JSON.parse(data.toString());
         const student = students.find((student) => student.id === id );
@@ -117,7 +128,6 @@ app.delete('/api/students/:id', ((req, res) => {
     fs.readFile('./mocks/students.json', ((error, data) => {
         if (error) {
             res.status(500).json({ message: 'Oops! Problems with server'} );
-            return;
         }
         const students = JSON.parse(data.toString());
         const student = students.find((student) => student.id === id );

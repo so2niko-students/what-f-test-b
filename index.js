@@ -206,7 +206,7 @@ app.post('/api/accounts/auth', ((req, res) => {
       res.status(403).send('Password incorrect');
     } else {
       res.header('Authorization', 'Bearer *valid jwt should be here*');
-      res.header('Access-Control-Expose-Headers', 'x-tokenAuthorization');
+      res.header('Access-Control-Expose-Headers', 'Authorization');
 
       const { firstName, lastName, role, id } = requestedUser;
       const responseData = {
@@ -494,14 +494,13 @@ app.delete('/api/courses/:id', ((req, res) => {
 // mentors
 
 app.get('/api/mentors', ((req, res) => {
-  fs.readFile('./mocks/users.json', ((err, data) => {
+  fs.readFile('./mocks/mentors.json', ((err, data) => {
     if (err) {
       throw err;
     }
     const users = JSON.parse(data);
-    const mentors = users.filter((user) => user.role === 2);
 
-    const responseData = mentors.map(({ id, firstName, lastName, email }) => ({ id, firstName, lastName, email }));
+    const responseData = users.map(({ id, firstName, lastName, email }) => ({ id, firstName, lastName, email }));
 
     res.send(responseData);
   }));
@@ -533,39 +532,36 @@ app.post('/api/mentors/:id', ((req, res) => {
 }));
 
 app.put('/api/mentors/:id', ((req, res) => {
-  fs.readFile('./mocks/users.json', ((err, data) => {
+  fs.readFile('./mocks/mentors.json', ((err, data) => {
     if (err) {
       throw err;
     }
     const users = JSON.parse(data);
     const userId = Number(req.params.id);
+    const requestedUser = users.find((user) => user.id === userId);
 
-    const requestedUser = users.find((user) => user.id === userId && user.role === 2);
+    const requiredKeys = ['email', 'firstName', 'lastName', 'courseIds', 'studentGroupIds'];
+    const bodyIsValid = requiredKeys.every((key) => Object.keys(req.body).includes(key));
 
     if (!requestedUser) {
       res.status(400).send('Mentor not found');
+    } else if (!bodyIsValid) {
+      res.status(400).send('Invalid request body');
     } else {
-      const { email, firstName, lastName } = requestedUser;
-      const responseData = {
-        email: req.body.email ?? email,
-        firstName: req.body.firstName ?? firstName,
-        lastName: req.body.lastName ?? lastName,
-      };
-
-      res.send(responseData);
+      res.send('Success');
     }
   }));
 }));
 
 app.delete('/api/mentors/:id', ((req, res) => {
-  fs.readFile('./mocks/users.json', ((err, data) => {
+  fs.readFile('./mocks/mentors.json', ((err, data) => {
     if (err) {
       throw err;
     }
     const users = JSON.parse(data);
     const userId = Number(req.params.id);
 
-    const requestedUser = users.find((user) => user.id === userId && user.role === 2);
+    const requestedUser = users.find((user) => user.id === userId);
 
     if (!requestedUser) {
       res.status(400).send('Mentor not found');

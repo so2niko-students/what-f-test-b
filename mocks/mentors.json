@@ -1,0 +1,34 @@
+[
+  {
+    "firstName":"Tim",
+    "lastName":"Cook",
+    "id":2,
+    "email":"cookie@gmail.com",
+    "courseIds": [2, 1],
+    "studentGroupIds": [1, 6]
+  },
+  {
+    "firstName":"Joe",
+    "lastName":"Biden",
+    "id":5,
+    "email":"mr.president@gmail.com",
+    "courseIds": [2],
+    "studentGroupIds": [2, 3, 6]
+  },
+  {
+    "firstName":"Barack",
+    "lastName":"Obama",
+    "id":6,
+    "email":"ex.president@gmail.com",
+    "courseIds": [1, 2, 3, 4, 5],
+    "studentGroupIds": [3, 4, 5, 7, 9, 10]
+  },
+  {
+    "firstName":"Kanye",
+    "lastName":"West",
+    "id":7,
+    "email":"next.president@gmail.com",
+    "courseIds": [3],
+    "studentGroupIds": [5]
+  }
+]

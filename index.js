@@ -26,7 +26,9 @@ app.get('/api', ((req, res) => {
 app.get('/api/students', (req, res) => {
     fs.readFile('./mocks/students.json', ((error, data) => {
         if (error) {
-            res.status(500).json({ message: 'Oops! Problems with server'});
+          res.send('Server error occured');
+          throw error;
+
         }
         const students = JSON.parse(data.toString());
         const list = students.map((student) => {
@@ -45,12 +47,21 @@ app.get('/api/students', (req, res) => {
 app.get('/api/students/:id', ((req, res) => {
     const id = Number(req.params.id);
     fs.readFile('./mocks/students.json', ((error, data) => {
-        if (error) {
-            res.status(500).json({ message: 'Oops! Problems with server'});
-        }
+      if (error) {
+        res.send('Server error occured');
+        throw error;
+      }
         const students = JSON.parse(data.toString());
-        const student = students.find((student) => student.id === id );
-        res.send(student);
+        const student = students.find((student, i) => i === id);
+        if (student) {
+            const { email, firstName, lastName, studentGroupIds } = student;
+            const resData = { email, firstName, lastName, studentGroupIds };
+            res.send(resData);
+        } else {
+          res.status(403).json({
+              message: `No student with such an id ${id} was found`,
+          });
+      }
     }));
 }));
 
@@ -80,7 +91,7 @@ app.post('/api/students/:id', ((req, res) => {
               message: `No student with such an id ${id} was found`,
           });
       }
-    }));
+  }));
 }));
 
 //PUT
@@ -104,12 +115,12 @@ app.put('/api/students/:id', ((req, res) => {
 
 
     fs.readFile('./mocks/students.json', ((error, data) => {
-    if (error) {
-            res.status(500).json({ message: 'Oops! Problems with server'});
-        }
+      if (error) {
+        res.send('Server error occured');
+        throw error;
+      }
         const students = JSON.parse(data.toString());
-        const student = students.find((student) => student.id === id );
-        
+        const student = students.find((student, i) => i === id );
         if (student) {
             res.status(200).json({
                 message: `A student with id ${id} was edited`,
@@ -126,12 +137,12 @@ app.put('/api/students/:id', ((req, res) => {
 app.delete('/api/students/:id', ((req, res) => {
     const id = Number(req.params.id);
     fs.readFile('./mocks/students.json', ((error, data) => {
-        if (error) {
-            res.status(500).json({ message: 'Oops! Problems with server'} );
-        }
+      if (error) {
+        res.send('Server error occured');
+        throw error;
+      }
         const students = JSON.parse(data.toString());
         const student = students.find((student) => student.id === id );
-        
         if (student) {
             res.status(200).json({
                 message: `A student with id ${id} was excluded`,

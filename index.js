@@ -38,7 +38,7 @@ app.post('/api/accounts/auth', ((req, res) => {
       res.status(403).send('Password incorrect');
     } else {
       res.header('Authorization', 'Bearer *valid jwt should be here*');
-      res.header('Access-Control-Expose-Headers', 'x-tokenAuthorization');
+      res.header('Access-Control-Expose-Headers', 'Authorization');
 
       const { firstName, lastName, role, id } = requestedUser;
       const responseData = {

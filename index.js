@@ -21,7 +21,8 @@ app.get('/api', ((req, res) => {
     res.send('Hello from WHAT mock server!');
 }));
 
-//GET list of Students
+//STUDENTS
+// GET --> get list of students
 app.get('/api/students', (req, res) => {
     fs.readFile('./mocks/students.json', ((error, data) => {
         if (error) {
@@ -42,7 +43,7 @@ app.get('/api/students', (req, res) => {
     }));
 });
 
-//GET a Student
+// GET --> get a student
 app.get('/api/students/:id', ((req, res) => {
     const id = Number(req.params.id);
     fs.readFile('./mocks/students.json', ((error, data) => {
@@ -64,7 +65,7 @@ app.get('/api/students/:id', ((req, res) => {
     }));
 }));
 
-//POST
+// POST --> create a student
 app.post('/api/students/:id', ((req, res) => {
   const id = Number(req.params.id);
   const keys = ['firstName', 'lastName', 'studentGroupIds', 'email'];
@@ -93,7 +94,7 @@ app.post('/api/students/:id', ((req, res) => {
   }));
 }));
 
-//PUT
+// PUT --> edit a student
 app.put('/api/students/:id', ((req, res) => {
     const id = Number(req.params.id);
     const object = req.body;
@@ -111,7 +112,6 @@ app.put('/api/students/:id', ((req, res) => {
     if(checkResult){
         res.status(403).json( { message: 'Missing properties in your object' });
     }
-
 
     fs.readFile('./mocks/students.json', ((error, data) => {
       if (error) {
@@ -132,7 +132,7 @@ app.put('/api/students/:id', ((req, res) => {
     }));
 }));
 
-//Delete
+// DELETE --> delete a student
 app.delete('/api/students/:id', ((req, res) => {
     const id = Number(req.params.id);
     fs.readFile('./mocks/students.json', ((error, data) => {
@@ -154,6 +154,8 @@ app.delete('/api/students/:id', ((req, res) => {
     }));
 }));
 
+// LESSONS
+// GET --> get list of lessons
 app.get('/api/lessons', (req, res) => {
   fs.readFile('./mocks/lessons.json', ((error, data) => {
     if (error) {
@@ -177,6 +179,7 @@ app.get('/api/lessons', (req, res) => {
   }));
 });
 
+// GET --> get a lesson 
 app.get('/api/lessons/students/:id', ((req, res) => {
   const studentID = Number(req.params.id);
   let student;
@@ -239,12 +242,10 @@ app.get('/api/lessons/students/:id', ((req, res) => {
   }));
 }));
 
+// POST --> create a lesson
 app.post('/api/lessons', ((req, res) => {
-
   const object = req.body;
-
   const listOfKey = ['themeName', 'mentorId', 'studentGroupId', 'lessonVisits', 'lessonDate'];
-
   const result = listOfKey.map((keyL) => {
     if(object.hasOwnProperty(keyL)){
       return 'true';
@@ -260,15 +261,11 @@ app.post('/api/lessons', ((req, res) => {
   }
 }));
 
-
+// PUT --> edit a lesson
 app.put('/api/lessons/:id', ((req, res) => {
-
   const id = Number(req.params.id);
-
   const object = req.body;
-
   const listOfKey = ['themeName', 'lessonVisits', 'lessonDate'];
-
   const result = listOfKey.map((key) => {
     if(object.hasOwnProperty(key)){
       return 'true';
@@ -299,10 +296,9 @@ app.put('/api/lessons/:id', ((req, res) => {
   }));
 }));
 
+// DELETE --> delete a lesson
 app.delete('/api/lessons/:id', ((req, res) => {
-
   const id = Number(req.params.id);
-
   fs.readFile('./mocks/lessons.json', ((error, data) => {
     if (error) {
       res.send('Server error');
@@ -320,8 +316,7 @@ app.delete('/api/lessons/:id', ((req, res) => {
 }));
 
 
-// Creating an account
-
+// CREATING AN ACCOUNT
 app.post('/api/accounts/auth', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
@@ -352,6 +347,7 @@ app.post('/api/accounts/auth', ((req, res) => {
   }));
 }));
 
+// REGISTRATION
 app.post('/api/accounts/reg', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
@@ -403,8 +399,8 @@ app.post('/api/accounts/reg', ((req, res) => {
   }));
 }));
 
-//---Group API(Get(ALL),Get(By Id), Put, Post, Delete)
-
+// GROUPS
+// GET --> get list of groups
 app.get('/api/student_groups', (req, res) => {
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
@@ -422,13 +418,12 @@ app.get('/api/student_groups', (req, res) => {
         }
         return resultGroup
       });
-
       res.send(groupsList);
-
     }
   }));
 });
 
+// GET --> get a group
 app.get('/api/student_groups/:id', ((req, res) => {
   const id = Number(req.params.id);
   fs.readFile('./mocks/groups.json', ((error, data) => {
@@ -444,10 +439,9 @@ app.get('/api/student_groups/:id', ((req, res) => {
   }));
 }));
 
+// POST --> create a group
 app.post('/api/student_groups', ((req, res) => {
-
   const object = req.body;
-
   const listOfKey = ['name', 'courseId', 'startDate', 'finishDate', 'studentIds'];
 
   fs.readFile('./mocks/groups.json', ((error, data) => {
@@ -486,13 +480,11 @@ app.post('/api/student_groups', ((req, res) => {
   }));
 }));
 
+// PUT --> edit a group
 app.put('/api/student_groups/:id', ((req, res) => {
   const id = Number(req.params.id);
-
   const object = req.body;
-
   const listOfKey = ['name', 'courseId', 'startDate', 'finishDate', 'studentIds'];
-
   const result = listOfKey.map((key) => {
     if (object.hasOwnProperty(key)) {
       return 'true';
@@ -524,10 +516,9 @@ app.put('/api/student_groups/:id', ((req, res) => {
   }));
 }));
 
+// DELETE --> delete a group
 app.delete('/api/student_groups/:id', ((req, res) => {
-
   const id = Number(req.params.id);
-
   fs.readFile('./mocks/groups.json', ((error, data) => {
     if (error) {
       res.send('Server error');
@@ -545,8 +536,8 @@ app.delete('/api/student_groups/:id', ((req, res) => {
   }));
 }));
 
-// Courses API
-
+// Courses 
+// GET get list of courses
 app.get('/api/courses', ((req, res) => {
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if (err) {
@@ -559,6 +550,7 @@ app.get('/api/courses', ((req, res) => {
   }));
 }));
 
+// POST --> create a course
 app.post('/api/courses', ((req, res) => {
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if (err) {
@@ -594,6 +586,7 @@ app.post('/api/courses', ((req, res) => {
   }));
 }));
 
+// PUT --> edit a course
 app.put('/api/courses/:id', ((req, res) => {
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if (err) {
@@ -617,9 +610,9 @@ app.put('/api/courses/:id', ((req, res) => {
   }));
 }));
 
+// DELETE --> delete a course
 app.delete('/api/courses/:id', ((req, res) => {
   const id = Number(req.params.id);
-
   fs.readFile('./mocks/courses.json', ((err, data) => {
     if(err) {
       res.send('Server error occured');
@@ -636,8 +629,102 @@ app.delete('/api/courses/:id', ((req, res) => {
   }));
 }));
 
-// mentors
+// THEMES
+//GET --> get list of themes 
+app.get('/api/themes', ((req, res) => {
+  fs.readFile('./mocks/themes.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    } else {
+      const responseData = JSON.parse(data);
+      res.send(responseData);
+    }
+  }));
+}));
 
+//POST --> create a theme
+app.post('/api/themes', ((req, res) => {
+  fs.readFile('./mocks/themes.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const {name} = req.body;
+    const themes = JSON.parse(data);
+    const existingTheme = themes.find((theme) => theme.name === name);
+    const maxIdThemes = themes.reduce((prev, cur) => {
+      if (prev.id > cur.id) {
+        return prev.id;
+      } else {
+        return cur.id;
+      }
+    });
+
+    if(existingTheme) {
+      res.status(409).send('Theme already exists');
+    } else {
+      const newTheme = {
+        id: maxIdThemes + 1,
+        name,
+      }
+      themes.push(newTheme);
+      const newThemes = JSON.stringify(themes);
+      fs.writeFile('./mocks/themes.json', newThemes, (err) => {
+        if(err) throw err;
+        res.send(newTheme);
+      });
+      res.send(newTheme);
+    }
+  }));
+}));
+
+//PUT --> edit a theme
+app.put('/api/themes/:id', ((req, res) => {
+  fs.readFile('./mocks/themes.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const themeId = Number(req.params.id);
+    const {name} = req.body;
+
+    const themes = JSON.parse(data.toString());
+    const theme = themes.find((theme) => theme.id === themeId);
+    if (theme) {
+      const editedTheme = {
+        id: themeId,
+        name,
+      };
+      res.send(editedTheme);
+    } else {
+      res.status(400).send(`There is no theme with such id`);
+    }
+  }));
+}));
+
+//DELETE --> delete a theme
+app.delete('/api/themes/:id', ((req, res) => {
+  const themeId = Number(req.params.id);
+
+  fs.readFile('./mocks/themes.json', ((err, data) => {
+    if(err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const themes = JSON.parse(data.toString());
+    const theme = themes.find((theme) => theme.id === themeId);
+
+    if(theme) {
+      res.send(theme);
+    } else {
+      res.status(400).send(`There is no theme with such id`);
+    }
+  }));
+}));
+
+// MENTORS
+// GET --> get list of mentors
 app.get('/api/mentors', ((req, res) => {
   fs.readFile('./mocks/mentors.json', ((err, data) => {
     if (err) {
@@ -651,6 +738,7 @@ app.get('/api/mentors', ((req, res) => {
   }));
 }));
 
+//POST --> create a mentor
 app.post('/api/mentors/:id', ((req, res) => {
   fs.readFile('./mocks/users.json', ((err, data) => {
     if (err) {
@@ -676,6 +764,7 @@ app.post('/api/mentors/:id', ((req, res) => {
   }));
 }));
 
+//PUT --> edit a mentor
 app.put('/api/mentors/:id', ((req, res) => {
   fs.readFile('./mocks/mentors.json', ((err, data) => {
     if (err) {
@@ -698,6 +787,7 @@ app.put('/api/mentors/:id', ((req, res) => {
   }));
 }));
 
+//DELETE --> delete a mentor
 app.delete('/api/mentors/:id', ((req, res) => {
   fs.readFile('./mocks/mentors.json', ((err, data) => {
     if (err) {

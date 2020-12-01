@@ -568,37 +568,51 @@ app.post('/api/courses', ((req, res) => {
     const {name} = req.body;
     const courses = JSON.parse(data);
     const existingCourse = courses.find((course) => course.name === name);
+    const maxIdCourses = courses.reduce((prev, cur) => {
+      if (prev.id > cur.id) {
+        return prev.id;
+      } else {
+        return cur.id;
+      }
+    });
 
     if(existingCourse) {
       res.status(409).send('Course already exists');
     } else {
-      const responseData = {
+      const newCourse = {
+        id: maxIdCourses + 1,
         name,
       }
-      res.send(responseData);
+      courses.push(newCourse);
+      const newCourses = JSON.stringify(courses);
+      fs.writeFile('./mocks/courses.json', newCourses, (err) => {
+        if(err) throw err;
+        res.status(201).send(newCourse);
+      });
+      res.send(newCourse);
     }
   }));
 }));
 
 app.put('/api/courses/:id', ((req, res) => {
-  const courseId = Number(req.params.id);
-  const {name} = req.body;
-  const editedCourse = {
-    id: 50,
-    name,
-  };
   fs.readFile('./mocks/courses.json', ((err, data) => {
-    if(err) {
+    if (err) {
       res.send('Server error occured');
       throw err;
     }
+    const courseId = Number(req.params.id);
+    const {name} = req.body;
 
     const courses = JSON.parse(data.toString());
     const course = courses.find((course) => course.id === courseId);
     if (course) {
-      res.send(`course with id ${courseId} is edited`);
+      const editedCourse = {
+        id: courseId,
+        name,
+      };
+      res.send(editedCourse);
     } else {
-      res.send(`There is no course with id ${courseId}`);
+      res.send(`error`);
     }
   }));
 }));
@@ -617,7 +631,7 @@ app.delete('/api/courses/:id', ((req, res) => {
     if(course) {
       res.send(`Course with id ${id} is deleted`);
     } else {
-      res.send(`There is no course with id ${id}`);
+      res.send();
     }
   }));
 }));

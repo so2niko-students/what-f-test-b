@@ -716,6 +716,23 @@ app.get('/api/schedules', ((req, res) => {
   }));
 }));
 
+//GET --> get a schedule by student group id
+app.get('/api/schedules/:id/groupSchedule', ((req, res) => {
+  const studentGroupId = Number(req.params.id);
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    } else {
+      const schedules = JSON.parse(data);
+      const responseData = schedules.filter((schedule) => {
+        return schedule.studentGroupId == studentGroupId
+      })
+      res.send(responseData);
+    }
+  }));
+}));
+
 // POST --> create a schedule
 app.post('/api/schedules', ((req, res) => {
   fs.readFile('./mocks/schedules.json', ((err, data) => {
@@ -790,4 +807,5 @@ app.delete('/api/schedules/:id', ((req, res) => {
     }
   }));
 }));
+
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

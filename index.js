@@ -716,7 +716,7 @@ app.get('/api/schedules', ((req, res) => {
   }));
 }));
 
-//GET --> get a schedule by student group id
+// GET --> get a schedule by student group id
 app.get('/api/schedules/:id/groupSchedule', ((req, res) => {
   const studentGroupId = Number(req.params.id);
   fs.readFile('./mocks/schedules.json', ((err, data) => {
@@ -788,7 +788,7 @@ app.put('/api/schedules/:id', ((req, res) => {
   }));
 }));
 
-//DELETE --> delete a schedule
+// DELETE --> delete a schedule
 app.delete('/api/schedules/:id', ((req, res) => {
   const scheduleId = Number(req.params.id);
 

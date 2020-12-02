@@ -702,4 +702,92 @@ app.delete('/api/mentors/:id', ((req, res) => {
   }));
 }));
 
+// SCHEDULES
+// GET --> get list of schedules
+app.get('/api/schedules', ((req, res) => {
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    } else {
+      const responseData = JSON.parse(data);
+      res.send(responseData);
+    }
+  }));
+}));
+
+// POST --> create a schedule
+app.post('/api/schedules', ((req, res) => {
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const schedules = JSON.parse(data);
+    const maxIdSchedule = schedules.reduce((prev, cur) => {
+      if (prev.id > cur.id) {
+        return prev.id;
+      } else {
+        return cur.id;
+      }
+    });
+      const newSchedule = {
+        id: maxIdSchedule + 1,
+        ...req.body,
+      }
+      schedules.push(newSchedule);
+      const newSchedules = JSON.stringify(schedules);
+      fs.writeFile('./mocks/schedules.json', newSchedules, (err) => {
+        if(err) throw err;
+        res.send(newSchedule);
+      });
+  }));
+}));
+
+// PUT --> edit a schedule
+app.put('/api/schedules/:id', ((req, res) => {
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const scheduleId = Number(req.params.id);
+    const {lessonStart, lessonEnd, repeatRate, dayNumber} = req.body;
+
+    const schedules = JSON.parse(data.toString());
+    const schedule = schedules.find((schedule) => schedule.id === scheduleId);
+    if (schedule) {
+      const editedSchedule = {
+        id: scheduleId,
+        lessonStart,
+        lessonEnd,
+        repeatRate,
+        dayNumber,
+      };
+      res.send(editedSchedule);
+    } else {
+      res.status(400).send(`There is no theme with such id`);
+    }
+  }));
+}));
+
+//DELETE --> delete a schedule
+app.delete('/api/schedules/:id', ((req, res) => {
+  const scheduleId = Number(req.params.id);
+
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if(err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const schedules = JSON.parse(data.toString());
+    const schedule = schedules.find((schedule) => schedule.id === scheduleId);
+
+    if(schedule) {
+      res.send(schedule);
+    } else {
+      res.status(400).send(`There is no theme with such id`);
+    }
+  }));
+}));
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));

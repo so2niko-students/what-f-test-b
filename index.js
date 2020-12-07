@@ -21,7 +21,7 @@ app.get('/api', ((req, res) => {
     res.send('Hello from WHAT mock server!');
 }));
 
-//STUDENTS
+// STUDENTS
 // GET --> get list of students
 app.get('/api/students', (req, res) => {
     fs.readFile('./mocks/students.json', ((error, data) => {
@@ -560,52 +560,38 @@ app.post('/api/courses', ((req, res) => {
     const {name} = req.body;
     const courses = JSON.parse(data);
     const existingCourse = courses.find((course) => course.name === name);
-    const maxIdCourses = courses.reduce((prev, cur) => {
-      if (prev.id > cur.id) {
-        return prev.id;
-      } else {
-        return cur.id;
-      }
-    });
 
     if(existingCourse) {
       res.status(409).send('Course already exists');
     } else {
-      const newCourse = {
-        id: maxIdCourses + 1,
+      const responseData = {
         name,
       }
-      courses.push(newCourse);
-      const newCourses = JSON.stringify(courses);
-      fs.writeFile('./mocks/courses.json', newCourses, (err) => {
-        if(err) throw err;
-        res.status(201).send(newCourse);
-      });
-      res.send(newCourse);
+      res.send(responseData);
     }
   }));
 }));
 
 // PUT --> edit a course
 app.put('/api/courses/:id', ((req, res) => {
+  const courseId = Number(req.params.id);
+  const {name} = req.body;
+  const editedCourse = {
+    id: 50,
+    name,
+  };
   fs.readFile('./mocks/courses.json', ((err, data) => {
-    if (err) {
+    if(err) {
       res.send('Server error occured');
       throw err;
     }
-    const courseId = Number(req.params.id);
-    const {name} = req.body;
 
     const courses = JSON.parse(data.toString());
     const course = courses.find((course) => course.id === courseId);
     if (course) {
-      const editedCourse = {
-        id: courseId,
-        name,
-      };
-      res.send(editedCourse);
+      res.send(`course with id ${courseId} is edited`);
     } else {
-      res.send(`error`);
+      res.send(`There is no course with id ${courseId}`);
     }
   }));
 }));
@@ -624,7 +610,7 @@ app.delete('/api/courses/:id', ((req, res) => {
     if(course) {
       res.send(`Course with id ${id} is deleted`);
     } else {
-      res.send();
+      res.send(`There is no course with id ${id}`);
     }
   }));
 }));
@@ -802,6 +788,112 @@ app.delete('/api/mentors/:id', ((req, res) => {
       res.status(400).send('Mentor not found');
     } else {
       res.send('Successfully deleted');
+    }
+  }));
+}));
+
+// SCHEDULES
+// GET --> get list of schedules
+app.get('/api/schedules', ((req, res) => {
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    } else {
+      const responseData = JSON.parse(data);
+      res.send(responseData);
+    }
+  }));
+}));
+
+// GET --> get a schedule by student group id
+app.get('/api/schedules/:id/groupSchedule', ((req, res) => {
+  const studentGroupId = Number(req.params.id);
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    } else {
+      const schedules = JSON.parse(data);
+      const responseData = schedules.filter((schedule) => {
+        return schedule.studentGroupId == studentGroupId
+      })
+      res.send(responseData);
+    }
+  }));
+}));
+
+// POST --> create a schedule
+app.post('/api/schedules', ((req, res) => {
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const schedules = JSON.parse(data);
+    const maxIdSchedule = schedules.reduce((prev, cur) => {
+      if (prev.id > cur.id) {
+        return prev.id;
+      } else {
+        return cur.id;
+      }
+    });
+      const newSchedule = {
+        id: maxIdSchedule + 1,
+        ...req.body,
+      }
+      schedules.push(newSchedule);
+      const newSchedules = JSON.stringify(schedules);
+      fs.writeFile('./mocks/schedules.json', newSchedules, (err) => {
+        if(err) throw err;
+        res.send(newSchedule);
+      });
+  }));
+}));
+
+// PUT --> edit a schedule
+app.put('/api/schedules/:id', ((req, res) => {
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if (err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const scheduleId = Number(req.params.id);
+    const {lessonStart, lessonEnd, repeatRate, dayNumber} = req.body;
+
+    const schedules = JSON.parse(data.toString());
+    const schedule = schedules.find((schedule) => schedule.id === scheduleId);
+    if (schedule) {
+      const editedSchedule = {
+        id: scheduleId,
+        lessonStart,
+        lessonEnd,
+        repeatRate,
+        dayNumber,
+      };
+      res.send(editedSchedule);
+    } else {
+      res.status(400).send(`There is no theme with such id`);
+    }
+  }));
+}));
+
+// DELETE --> delete a schedule
+app.delete('/api/schedules/:id', ((req, res) => {
+  const scheduleId = Number(req.params.id);
+
+  fs.readFile('./mocks/schedules.json', ((err, data) => {
+    if(err) {
+      res.send('Server error occured');
+      throw err;
+    }
+    const schedules = JSON.parse(data.toString());
+    const schedule = schedules.find((schedule) => schedule.id === scheduleId);
+
+    if(schedule) {
+      res.send(schedule);
+    } else {
+      res.status(400).send(`There is no theme with such id`);
     }
   }));
 }));
